@@ -216,14 +216,14 @@ module Bacon
     end
 
     class Proxy < Struct.new(:context, :name)
-      def call *args, &block
+      def call(*args, &block)
         context.send(name, *args, &block)
       end
     end
 
     def describe(*args, &block)
       context = Bacon::Context.new(args.join(' '), &block)
-      methods(false).each {|e|
+      methods(false).each { |e|
         (class << context; self; end).send(:define_method, e, &Proxy.new(self, e).method(:call))
       }
       @before.each { |b| context.before(&b) }

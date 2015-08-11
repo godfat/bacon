@@ -389,9 +389,9 @@ describe "Methods" do
     end
 
     it "should pass the block" do
-      the_towels do |label|
+      the_towels { |label|
         label.should == "DON'T PANIC"
-      end.should == true
+      }.should == true
     end
   end
 end
